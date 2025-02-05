@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+.xterm {
+    height: 100vh !important;  /* Chiều cao 100% của viewport */
+    width: 100% !important;    /* Đảm bảo chiếm hết chiều rộng */
+}
+
+.xterm-viewport {
+    overflow: hidden !important;  /* Tránh xuất hiện thanh cuộn thừa */
+}
