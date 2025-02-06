@@ -1,14 +1,15 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import AddNew from "../../components/utils/AddNew";
 import ServerForm from "../../components/commands/ServerForm";
 import GroupServer from "../../components/commands/GroupServer";
+import { Server, ServerType } from "../../types/commands/ServerTypes";
 
-const data = [
+const data: Server[] = [
   {
     id: 1,
     group: "",
     name: "Server 1",
-    type: "ubuntu",
+    type: ServerType.UBUNTU,
     host: "172.31.35.2",
     port: 22,
     user: "sargon",
@@ -18,7 +19,7 @@ const data = [
     id: 2,
     group: "",
     name: "Server 2",
-    type: "debian",
+    type: ServerType.DEBIAN,
     host: "172.31.35.2",
     port: 22,
     user: "sargon",
@@ -28,7 +29,7 @@ const data = [
     id: 3,
     group: "",
     name: "Server 3",
-    type: "centos",
+    type: ServerType.CENTOS,
     host: "172.31.35.2",
     port: 22,
     user: "sargon",
@@ -38,7 +39,7 @@ const data = [
     id: 4,
     group: "Group 1",
     name: "Server 4",
-    type: "fedora",
+    type: ServerType.FEDORA,
     host: "172.31.35.2",
     port: 22,
     user: "sargon",
@@ -48,7 +49,7 @@ const data = [
     id: 5,
     group: "Group 1",
     name: "Server 5",
-    type: "other",
+    type: ServerType.OTHER,
     host: "172.31.35.2",
     port: 22,
     user: "sargon",
@@ -58,7 +59,7 @@ const data = [
     id: 6,
     group: "Group 1",
     name: "Server 6",
-    type: "ubuntu",
+    type: ServerType.UBUNTU,
     host: "172.31.35.2",
     port: 22,
     user: "sargon",
@@ -68,7 +69,7 @@ const data = [
     id: 7,
     group: "Group 1",
     name: "Server 7",
-    type: "fedora",
+    type: ServerType.FEDORA,
     host: "172.31.35.2",
     port: 22,
     user: "sargon",
@@ -78,7 +79,7 @@ const data = [
     id: 8,
     group: "Group 1",
     name: "Server 8",
-    type: "other",
+    type: ServerType.OTHER,
     host: "172.31.35.2",
     port: 22,
     user: "sargon",
@@ -88,7 +89,7 @@ const data = [
     id: 9,
     group: "Group 1",
     name: "Server 9",
-    type: "ubuntu",
+    type: ServerType.UBUNTU,
     host: "172.31.35.2",
     port: 22,
     user: "sargon",
@@ -99,7 +100,7 @@ const data = [
 const CommandHome = () => {
   const [openForm, setOpenForm] = useState(false);
 
-  const groupedData = data.reduce((acc, item) => {
+  const groupedData = data.reduce((acc: Record<string, Server[]>, item) => {
     const groupKey = item.group || "Ungrouped";
     if (!acc[groupKey]) {
       acc[groupKey] = [];
@@ -110,7 +111,10 @@ const CommandHome = () => {
 
   return (
     <div className="w-full flex flex-col gap-4 text-white">
-      <div className="w-full flex justify-end items-center pr-4">
+      <div className="w-full flex justify-between items-center px-4">
+        <button className="h-8 flex justify-center items-center p-2 border border-white text-white font-medium rounded hover:scale-110">
+          Active Session
+        </button>
         <button className="cursor-pointer" onClick={() => setOpenForm(true)}>
           <AddNew />
         </button>

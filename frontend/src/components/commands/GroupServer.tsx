@@ -1,6 +1,13 @@
+import React from "react";
 import ServerMinimal from "./ServerMinimal";
+import { Server } from "../../types/commands/ServerTypes";
 
-const GroupServer = ({ name, value }) => {
+interface GroupServerProps {
+  name: string;
+  value: Server[];
+}
+
+const GroupServer: React.FC<GroupServerProps> = ({ name, value }) => {
   return (
     <div className="w-full flex flex-col">
       <div className="w-full flex justify-start font-medium text-white text-xl border-b border-white p-4">

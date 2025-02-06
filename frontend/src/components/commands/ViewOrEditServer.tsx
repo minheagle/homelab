@@ -1,3 +1,4 @@
+import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { IoClose } from "react-icons/io5";
@@ -63,7 +64,6 @@ const ViewOrEditServer = ({ setOpenForm }) => {
               )}
             </div>
             <select
-              name=""
               id=""
               {...register("type")}
               className="w-full bg-black outline-none border border-white rounded px-2 py-1"

@@ -1,3 +1,4 @@
+import React from "react";
 import { Outlet } from "@tanstack/react-router";
 import Navigation from "../components/root/Navigation";
 import Header from "../components/root/Header";

@@ -1,18 +1,41 @@
-import { useState, useRef } from "react";
-import { Link } from "@tanstack/react-router";
+import React, { useState, useRef } from "react";
+import { useNavigate } from "@tanstack/react-router";
+import { useDispatch } from "react-redux";
 import { CgMoreR } from "react-icons/cg";
 import ServerType from "./ServerType";
 import ServerForm from "./ServerForm";
 import DeleteModal from "./DeleteModal";
 import useClickOutside from "../../hooks/useClickOutside";
 import ROUTER from "../../constants/routes";
+import { Server } from "../../types/commands/ServerTypes";
+import { addSession } from "../../redux/slices/commands";
 
-const ServerMinimal = ({ data }) => {
+interface ServerMinimalProps {
+  data: Server; // Define the type of the prop data
+}
+
+const ServerMinimal: React.FC<ServerMinimalProps> = ({ data }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const menuRef = useRef(null);
   const [isOpenDropdown, setIsOpenDropdown] = useClickOutside(menuRef);
   const [isOpenView, setIsOpenView] = useState(false);
   const [isOpenEdit, setIsOpenEdit] = useState(false);
   const [isOpenDelete, setIsOpenDelete] = useState(false);
+
+  const handleOnClick = () => {
+    dispatch(
+      addSession({
+        id: data.id,
+        name: data.name,
+      })
+    );
+
+    navigate({
+      to: ROUTER.COMMAND.TERMINAL,
+      params: { serverId: data.id },
+    });
+  };
 
   return (
     <div className="w-full h-full flex border border-white rounded p-2 relative">
@@ -36,14 +59,9 @@ const ServerMinimal = ({ data }) => {
               <ul className="text-white font-medium p-1">
                 <li
                   className="px-4 py-2 hover:bg-gray-100 hover:text-gray-700 hover:rounded cursor-pointer"
-                  onClick={() => console.log("Connect clicked")}
+                  onClick={() => handleOnClick()}
                 >
-                  <Link
-                    to={ROUTER.COMMAND.TERMINAL}
-                    params={{ serverId: data?.id }}
-                  >
-                    Connect
-                  </Link>
+                  Connect
                 </li>
                 <li
                   className="px-4 py-2 hover:bg-gray-100 hover:text-gray-700 hover:rounded cursor-pointer"

@@ -1,12 +1,13 @@
 import * as yup from "yup";
-import SERVER_TYPE from "../constants/serverType";
+import { ServerType } from "../types/commands/ServerTypes";
 
 const schema = yup.object().shape({
   group: yup.string(),
   name: yup.string().required("Name is required !"),
   type: yup
     .string()
-    .oneOf(Object.values(SERVER_TYPE), "Server type is not valid !"),
+    .oneOf(Object.values(ServerType), "Server type is not valid !")
+    .required("Type is required !"),
   host: yup
     .string()
     .required("Host is required !")

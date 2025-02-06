@@ -1,12 +1,25 @@
+import React from "react";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import createServerFormSchema from "../../validations/createServerFormSchema";
 import SERVER_TYPE from "../../constants/serverType";
+import {
+  Server,
+  ServerFormData,
+  ServerType,
+} from "../../types/commands/ServerTypes";
 
-const ServerForm = ({
-  data = null,
+interface ServerFormProps {
+  data?: Server;
+  setOpenForm: React.Dispatch<React.SetStateAction<boolean>>; // Correctly typing setOpenForm
+  isCreate?: boolean;
+  isEdit?: boolean;
+}
+
+const ServerForm: React.FC<ServerFormProps> = ({
+  data = {} as Server,
   setOpenForm,
   isCreate = false,
   isEdit = true,
@@ -18,12 +31,12 @@ const ServerForm = ({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<ServerFormData>({
     resolver: yupResolver(createServerFormSchema),
     defaultValues: {
       group: data?.group || "",
       name: data?.name || "",
-      type: data?.type || "",
+      type: data?.type || ServerType.OTHER, // Dùng giá trị mặc định hợp lệ từ enum
       host: data?.host || "",
       port: data?.port || 22,
       user: data?.user || "",
@@ -31,7 +44,7 @@ const ServerForm = ({
     },
   });
 
-  const onSubmit = (formData) => {
+  const onSubmit: SubmitHandler<ServerFormData> = (formData) => {
     console.log("Form data : ", formData);
   };
 
@@ -95,7 +108,6 @@ const ServerForm = ({
               )}
             </div>
             <select
-              name=""
               id=""
               {...register("type")}
               className="w-full bg-black outline-none border border-white rounded px-2 py-1"

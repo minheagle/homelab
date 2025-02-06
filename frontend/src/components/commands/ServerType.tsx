@@ -1,3 +1,4 @@
+import React from "react";
 import { FaUbuntu } from "react-icons/fa";
 import { FaDebian } from "react-icons/fa6";
 import { FaCentos } from "react-icons/fa";

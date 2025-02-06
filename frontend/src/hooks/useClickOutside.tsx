@@ -1,13 +1,16 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, RefObject } from "react";
 
-const useClickOutside = (ref) => {
+const useClickOutside = (ref: RefObject<HTMLElement>) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleClickOutside = useCallback((event) => {
-    if (ref.current && !ref.current.contains(event.target)) {
-      setIsOpen(false);
-    }
-  }, []);
+  const handleClickOutside = useCallback(
+    (event: MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    },
+    [ref]
+  );
 
   useEffect(() => {
     if (isOpen) {
@@ -21,7 +24,7 @@ const useClickOutside = (ref) => {
     };
   }, [isOpen, handleClickOutside]);
 
-  return [isOpen, setIsOpen];
+  return [isOpen, setIsOpen] as const;
 };
 
 export default useClickOutside;

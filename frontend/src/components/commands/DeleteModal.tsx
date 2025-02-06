@@ -1,3 +1,5 @@
+import React from "react";
+
 const DeleteModal = ({ setOpenForm }) => {
   return (
     <div className="fixed inset-0 backdrop-blur-xs flex justify-center items-center z-50">
