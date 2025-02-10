@@ -30,7 +30,7 @@ const TerminalPage = () => {
       <div className="w-full h-8 flex justify-start items-center border-b border-white">
         <Link
           to={ROUTER.COMMAND.ROOT}
-          className="cursor-pointer p-1 hover:scale-110"
+          className="w-8 h-8 flex justify-center items-center cursor-pointer p-1 hover:scale-110"
         >
           <IoMdArrowRoundBack className="text-xl" />
         </Link>
